@@ -7,7 +7,10 @@ from datetime import datetime
 
 def main():
 
-    os.environ["PYLON_GENICAM_GENTL64_PATH"] = "C:\\Program Files\\Basler\\pylon 6\\Runtime\\Win64_x64"
+    #PYLON_RT = r"C:\Program Files\Basler\pylon 8\Runtime\win32"
+
+    #os.environ["PYLON_GENICAM_GENTL64_PATH"] = PYLON_RT        # <- .cti files
+    #os.add_dll_directory(PYLON_RT)                             # <- .dll files (Python 3.8+)
 
     factory = pylon.TlFactory.GetInstance()
     devices = factory.EnumerateDevices()
@@ -21,7 +24,7 @@ def main():
 
     camera = pylon.InstantCamera(factory.CreateDevice(devices[0]))
 
-    desired_fps = 60.0 # Desired frame rate in FPS, not exact due to floating point differences 
+    desired_fps = 30.0 # Desired frame rate in FPS, not exact due to floating point differences 
     base_output_folder = "camera_output"  # Base folder for all recordings
     os.makedirs(base_output_folder, exist_ok=True) # make dir if it doesn't exist
     camera.Open() 
